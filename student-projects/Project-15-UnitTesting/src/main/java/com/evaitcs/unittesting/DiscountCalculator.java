@@ -9,7 +9,6 @@ package com.evaitcs.unittesting;
 public class DiscountCalculator {
 
     /**
-     * TODO 1: Calculate discount based on total amount
      * Rules:
      *   Total >= $500  → 20% discount
      *   Total >= $200  → 10% discount
@@ -21,35 +20,44 @@ public class DiscountCalculator {
      * @throws IllegalArgumentException if total is negative
      */
     public double getDiscountPercent(double total) {
-        // TODO: Implement the discount rules
-        return 0.0; // Replace this line
+        if (total < 0.0) {
+            throw new IllegalArgumentException();
+        }
+        if (total >= 500.0) {
+            return 20;
+        } else if (total >= 200) {
+            return 10;
+        } else if (total >= 100) {
+            return 5;
+        } else {
+            return 0.0;
+        }
     }
 
     /**
-     * TODO 2: Calculate the final price after discount
-     *
      * @param total the original total
      * @return the total after applying the appropriate discount
      */
     public double calculateFinalPrice(double total) {
-        // TODO: Get discount percent, apply it, return final price
-        return 0.0; // Replace this line
+        double discountPercent = getDiscountPercent(total);
+
+        return total - total * discountPercent * 0.01; // Replace this line
     }
 
     /**
-     * TODO 3: Check if a promo code is valid
      * Valid codes: "SAVE10", "WELCOME20", "VIP30"
      *
      * @param code the promo code
      * @return true if the code is valid
      */
     public boolean isValidPromoCode(String code) {
-        // TODO: Check against known promo codes
-        return false; // Replace this line
+        if (code == null) {
+            return false;
+        }
+        return code.equals("SAVE10") || code.equals("WELCOME20") || code.equals("VIP30");
     }
 
     /**
-     * TODO 4: Apply a promo code and return the discount percentage
      * "SAVE10"    → 10%
      * "WELCOME20" → 20%
      * "VIP30"     → 30%
@@ -59,8 +67,12 @@ public class DiscountCalculator {
      * @return the discount percentage for the code
      */
     public double getPromoDiscount(String code) {
-        // TODO: Return the discount for the promo code
-        return 0.0; // Replace this line
+        return switch (code) {
+            case "SAVE10" -> 10;
+            case "WELCOME20" -> 20;
+            case "VIP30" -> 30;
+            default -> throw new IllegalArgumentException();
+        };
     }
 }
 

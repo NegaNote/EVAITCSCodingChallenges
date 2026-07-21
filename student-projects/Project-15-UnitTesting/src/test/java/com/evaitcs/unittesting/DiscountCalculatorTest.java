@@ -41,7 +41,6 @@ class DiscountCalculatorTest {
     // =========================================================================
 
     /**
-     * TODO 1: Test discount percentages with multiple input values
      * Use @CsvSource to provide input-expected pairs:
      *   total, expectedDiscount
      *   50.00, 0.0       (under $100 → 0%)
@@ -62,24 +61,19 @@ class DiscountCalculatorTest {
         "999.99, 20.0"
     })
     void getDiscountPercent_variousTotals_returnsCorrectDiscount(double total, double expectedDiscount) {
-        // TODO: Uncomment and implement
-        // assertEquals(expectedDiscount, calculator.getDiscountPercent(total), 0.01,
-        //     "Total $" + total + " should give " + expectedDiscount + "% discount");
+        assertEquals(expectedDiscount, calculator.getDiscountPercent(total), 0.01,
+            "Total $" + total + " should give " + expectedDiscount + "% discount");
     }
 
-    /**
-     * TODO 2: Test that negative total throws exception
-     */
     @Test
     @DisplayName("getDiscountPercent: Negative total throws exception")
     void getDiscountPercent_negativeTotal_throwsException() {
-        // assertThrows(IllegalArgumentException.class, () -> {
-        //     calculator.getDiscountPercent(-50.00);
-        // });
+        assertThrows(IllegalArgumentException.class, () -> {
+            calculator.getDiscountPercent(-50.00);
+        });
     }
 
     /**
-     * TODO 3: Test boundary values (exact threshold amounts)
      * Boundary testing is CRITICAL — bugs love to hide at boundaries!
      */
     @ParameterizedTest(name = "Boundary test: ${0}")
@@ -92,17 +86,13 @@ class DiscountCalculatorTest {
         "200.00, 10.0"
     })
     void getDiscountPercent_boundaryValues_returnsCorrectDiscount(double total, double expected) {
-        // TODO: Uncomment
-        // assertEquals(expected, calculator.getDiscountPercent(total), 0.01);
+        assertEquals(expected, calculator.getDiscountPercent(total), 0.01);
     }
 
     // =========================================================================
     // TESTS FOR: calculateFinalPrice()
     // =========================================================================
 
-    /**
-     * TODO 4: Test final price calculation
-     */
     @ParameterizedTest(name = "Total ${0} → final price ${1}")
     @CsvSource({
         "50.00, 50.00",     // 0% discount
@@ -111,54 +101,38 @@ class DiscountCalculatorTest {
         "500.00, 400.00"    // 20% discount → 500 * 0.80
     })
     void calculateFinalPrice_variousTotals_calculatesCorrectly(double total, double expectedFinal) {
-        // TODO: Uncomment
-        // assertEquals(expectedFinal, calculator.calculateFinalPrice(total), 0.01,
-        //     "Total $" + total + " should have final price $" + expectedFinal);
+        assertEquals(expectedFinal, calculator.calculateFinalPrice(total), 0.01,
+            "Total $" + total + " should have final price $" + expectedFinal);
     }
 
     // =========================================================================
     // TESTS FOR: isValidPromoCode()
     // =========================================================================
 
-    /**
-     * TODO 5: Test valid promo codes using @ValueSource
-     */
     @ParameterizedTest(name = "Promo code \"{0}\" should be valid")
     @ValueSource(strings = {"SAVE10", "WELCOME20", "VIP30"})
     void isValidPromoCode_validCodes_returnsTrue(String code) {
-        // TODO: Uncomment
-        // assertTrue(calculator.isValidPromoCode(code),
-        //     "Code '" + code + "' should be valid");
+        assertTrue(calculator.isValidPromoCode(code),
+            "Code '" + code + "' should be valid");
     }
 
-    /**
-     * TODO 6: Test invalid promo codes
-     */
     @ParameterizedTest(name = "Promo code \"{0}\" should be invalid")
     @ValueSource(strings = {"INVALID", "SAVE50", "", "save10"})
     void isValidPromoCode_invalidCodes_returnsFalse(String code) {
-        // TODO: Uncomment
-        // assertFalse(calculator.isValidPromoCode(code),
-        //     "Code '" + code + "' should be invalid");
+        assertFalse(calculator.isValidPromoCode(code),
+            "Code '" + code + "' should be invalid");
     }
 
-    /**
-     * TODO 7: Test null promo code
-     */
     @Test
     @DisplayName("isValidPromoCode: null code returns false")
     void isValidPromoCode_nullCode_returnsFalse() {
-        // TODO: Uncomment
-        // assertFalse(calculator.isValidPromoCode(null));
+        assertFalse(calculator.isValidPromoCode(null));
     }
 
     // =========================================================================
     // TESTS FOR: getPromoDiscount()
     // =========================================================================
 
-    /**
-     * TODO 8: Test promo discount amounts
-     */
     @ParameterizedTest(name = "Promo \"{0}\" gives {1}% discount")
     @CsvSource({
         "SAVE10, 10.0",
@@ -166,20 +140,15 @@ class DiscountCalculatorTest {
         "VIP30, 30.0"
     })
     void getPromoDiscount_validCodes_returnsCorrectDiscount(String code, double expectedDiscount) {
-        // TODO: Uncomment
-        // assertEquals(expectedDiscount, calculator.getPromoDiscount(code), 0.01);
+        assertEquals(expectedDiscount, calculator.getPromoDiscount(code), 0.01);
     }
 
-    /**
-     * TODO 9: Test invalid promo code throws exception
-     */
     @Test
     @DisplayName("getPromoDiscount: Invalid code throws exception")
     void getPromoDiscount_invalidCode_throwsException() {
-        // TODO: Uncomment
-        // assertThrows(IllegalArgumentException.class, () -> {
-        //     calculator.getPromoDiscount("FAKE_CODE");
-        // });
+        assertThrows(IllegalArgumentException.class, () -> {
+            calculator.getPromoDiscount("FAKE_CODE");
+        });
     }
 
     // =========================================================================
@@ -187,7 +156,6 @@ class DiscountCalculatorTest {
     // =========================================================================
 
     /**
-     * TODO 10: Create a nested test class for grouping related tests
      * @Nested classes help organize tests logically!
      */
     @Nested
@@ -197,15 +165,13 @@ class DiscountCalculatorTest {
         @Test
         @DisplayName("Zero total returns zero final price")
         void calculateFinalPrice_zeroTotal_returnsZero() {
-            // TODO: Uncomment
-            // assertEquals(0.0, calculator.calculateFinalPrice(0.0), 0.01);
+            assertEquals(0.0, calculator.calculateFinalPrice(0.0), 0.01);
         }
 
         @Test
         @DisplayName("Very large total still applies 20% discount")
         void getDiscountPercent_veryLargeTotal_returns20() {
-            // TODO: Uncomment
-            // assertEquals(20.0, calculator.getDiscountPercent(1000000.00), 0.01);
+            assertEquals(20.0, calculator.getDiscountPercent(1000000.00), 0.01);
         }
     }
 }
