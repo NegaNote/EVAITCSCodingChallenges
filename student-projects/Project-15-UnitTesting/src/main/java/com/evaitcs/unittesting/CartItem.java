@@ -14,26 +14,65 @@ public class CartItem {
     private int quantity;
 
     /**
-     * TODO 1: Create a constructor with validation
      * - name must not be null/empty
      * - price must be > 0
      * - quantity must be >= 1
      * Throw IllegalArgumentException for invalid input.
      */
-    // YOUR CONSTRUCTOR HERE
+    public CartItem(String productId, String name, double price, int quantity) {
+        if (productId == null || productId.isEmpty()) {
+            throw new IllegalArgumentException("productId must be non-null and non-empty");
+        }
 
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("name must be non-null and non-empty");
+        }
 
-    // TODO 2: Create getters for all fields
+        if (price <= 0) {
+            throw new IllegalArgumentException("price must be > 0");
+        }
 
-    // TODO 3: Create a setter for quantity with validation (>= 1)
+        if (quantity < 1) {
+            throw new IllegalArgumentException("quantity must be >= 1");
+        }
+
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 
     /**
-     * TODO 4: Calculate the subtotal for this item
+     * @param quantity desired quantity
+     * Only sets the field if the parameter is >= 1.
+     */
+    public void setQuantity(int quantity) {
+        if (quantity >= 1) {
+            this.quantity = quantity;
+        }
+    }
+
+    /**
      * @return price * quantity
      */
     public double getSubtotal() {
-        // TODO: Return price * quantity
-        return 0.0; // Replace this line
+        return price * quantity;
     }
 
     @Override
