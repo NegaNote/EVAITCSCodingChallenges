@@ -12,20 +12,56 @@ package com.evaitcs.capstone.util;
  */
 public class AppConfig {
 
-    // TODO 1: Declare private static volatile instance
+    private static volatile AppConfig INSTANCE;
 
-    // TODO 2: Declare configuration fields:
-    //   - dataFilePath (String) = "data/employees.dat"
-    //   - reportFilePath (String) = "data/reports/"
-    //   - companyName (String) = "EVAITCS Corporation"
-    //   - maxEmployeesPerDepartment (int) = 50
+    private String dataFilePath = "data/employees.dat";
+    private String reportFilePath = "data/reports/";
+    private String companyName = "EVAITCS Corporation";
+    private int maxEmployeesPerDepartment = 50;
 
-    // TODO 3: Create a PRIVATE constructor that initializes defaults
+    private AppConfig() {}
 
-    // TODO 4: Create getInstance() with double-checked locking
+    public static AppConfig getInstance() {
+        if (INSTANCE == null) {
+            synchronized (AppConfig.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new AppConfig();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
-    // TODO 5: Create getters for all configuration fields
+    public String getDataFilePath() {
+        return dataFilePath;
+    }
 
-    // TODO 6: Create setters for configurable fields (NOT instance)
+    public String getReportFilePath() {
+        return reportFilePath;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public int getMaxEmployeesPerDepartment() {
+        return maxEmployeesPerDepartment;
+    }
+
+    public void setDataFilePath(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
+    }
+
+    public void setReportFilePath(String reportFilePath) {
+        this.reportFilePath = reportFilePath;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setMaxEmployeesPerDepartment(int maxEmployeesPerDepartment) {
+        this.maxEmployeesPerDepartment = maxEmployeesPerDepartment;
+    }
 }
 

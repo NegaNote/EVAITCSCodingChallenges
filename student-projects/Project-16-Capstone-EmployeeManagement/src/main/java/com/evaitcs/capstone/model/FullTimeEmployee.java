@@ -17,41 +17,47 @@ public class FullTimeEmployee extends Employee {
 
     private static final long serialVersionUID = 1L;
 
-    // TODO 1: Declare private fields:
-    //   - annualBaseSalary (double)
-    //   - bonusPercentage (double) — e.g., 10.0 for 10%
+    private double annualBaseSalary;
+    private double bonusPercentage;
 
+    public FullTimeEmployee(String employeeId, String firstName, String lastName, String email, Department department, int hireYear, double annualBaseSalary, double bonusPercentage) {
+        super(employeeId, firstName, lastName, email, department, hireYear);
+        if (annualBaseSalary <= 0 || bonusPercentage < 0 || bonusPercentage > 50) {
+            throw new IllegalArgumentException();
+        }
 
-    // TODO 2: Create a constructor
-    //   Parameters: employeeId, firstName, lastName, email, department, hireYear,
-    //               annualBaseSalary, bonusPercentage
-    //   Call super() for the common fields, then set salary/bonus fields
-    //   Validate: annualBaseSalary > 0, bonusPercentage >= 0
+        this.annualBaseSalary = annualBaseSalary;
+        this.bonusPercentage = bonusPercentage;
+    }
 
-
-    // TODO 3: Implement calculateMonthlySalary()
-    //   Return: annualBaseSalary / 12
     @Override
     public double calculateMonthlySalary() {
-        return 0.0; // Replace this line
+        return annualBaseSalary / 12;
     }
 
-    // TODO 4: Implement calculateAnnualSalary()
-    //   Return: annualBaseSalary + (annualBaseSalary * bonusPercentage / 100)
     @Override
     public double calculateAnnualSalary() {
-        return 0.0; // Replace this line
+        return annualBaseSalary + (annualBaseSalary * bonusPercentage / 100.0);
     }
 
-    // TODO 5: Implement getEmployeeType()
-    //   Return: "Full-Time"
     @Override
     public String getEmployeeType() {
-        return ""; // Replace this line
+        return "Full-Time";
     }
 
-    // TODO 6: Create getters for annualBaseSalary and bonusPercentage
+    public double getAnnualBaseSalary() {
+        return annualBaseSalary;
+    }
 
-    // TODO 7: Create a setter for bonusPercentage with validation (>= 0, <= 50)
+    public double getBonusPercentage() {
+        return bonusPercentage;
+    }
+
+    public void setBonusPercentage(double bonusPercentage) {
+        if (bonusPercentage < 0 || bonusPercentage > 50) {
+            throw new IllegalArgumentException();
+        }
+        this.bonusPercentage = bonusPercentage;
+    }
 }
 

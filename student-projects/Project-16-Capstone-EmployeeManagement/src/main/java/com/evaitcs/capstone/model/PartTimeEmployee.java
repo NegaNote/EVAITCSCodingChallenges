@@ -17,36 +17,57 @@ public class PartTimeEmployee extends Employee {
 
     private static final long serialVersionUID = 1L;
 
-    // TODO 1: Declare private fields:
-    //   - hourlyRate (double)
-    //   - hoursPerWeek (int)
+    public PartTimeEmployee(String employeeId, String firstName, String lastName, String email, Department department, int hireYear, double hourlyRate, int hoursPerWeek) {
+        super(employeeId, firstName, lastName, email, department, hireYear);
+
+        if (hourlyRate <= 0 || !(hoursPerWeek >= 1 && hoursPerWeek <= 40)) {
+            throw new IllegalArgumentException();
+        }
+
+        this.hourlyRate = hourlyRate;
+        this.hoursPerWeek = hoursPerWeek;
+
+    }
+
+    private double hourlyRate;
+    private int hoursPerWeek;
 
 
-    // TODO 2: Create a constructor
-    //   Call super(), validate hourlyRate > 0, hoursPerWeek between 1 and 40
-
-
-    // TODO 3: Implement calculateMonthlySalary()
-    //   Return: hourlyRate * hoursPerWeek * 4
     @Override
     public double calculateMonthlySalary() {
-        return 0.0; // Replace this line
+        return hourlyRate * hoursPerWeek * 4;
     }
 
-    // TODO 4: Implement calculateAnnualSalary()
-    //   Return: calculateMonthlySalary() * 12
     @Override
     public double calculateAnnualSalary() {
-        return 0.0; // Replace this line
+        return calculateMonthlySalary() * 12;
     }
 
-    // TODO 5: Implement getEmployeeType()
-    //   Return: "Part-Time"
     @Override
     public String getEmployeeType() {
-        return ""; // Replace this line
+        return "Part-Time";
     }
 
-    // TODO 6: Create getters and validated setters for hourlyRate and hoursPerWeek
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(double hourlyRate) {
+        if (hourlyRate <= 0) {
+            throw new IllegalArgumentException();
+        }
+        this.hourlyRate = hourlyRate;
+    }
+
+    public int getHoursPerWeek() {
+        return hoursPerWeek;
+    }
+
+    public void setHoursPerWeek(int hoursPerWeek) {
+        if (!(hoursPerWeek >= 1 && hoursPerWeek <= 40)) {
+            throw new IllegalArgumentException();
+        }
+        this.hoursPerWeek = hoursPerWeek;
+    }
 }
 

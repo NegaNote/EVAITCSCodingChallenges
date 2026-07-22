@@ -1,6 +1,7 @@
 package com.evaitcs.capstone.model;
 
 import java.io.Serializable;
+import java.time.Year;
 
 /**
  * ============================================================================
@@ -26,33 +27,67 @@ public abstract class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // =========================================================================
-    // TODO 1: Declare private fields
-    //   - employeeId (String)
-    //   - firstName (String)
-    //   - lastName (String)
-    //   - email (String)
-    //   - department (Department enum)
-    //   - status (EmployeeStatus enum)
-    //   - hireYear (int)
-    // =========================================================================
+    private String employeeId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private Department department;
+    private EmployeeStatus status;
+    private int hireYear;
 
+    public Employee(String employeeId, String firstName, String lastName, String email, Department department, int hireYear) {
+        if (employeeId == null || firstName == null || lastName == null || email == null || department == null) {
+            throw new IllegalArgumentException();
+        }
 
-    // =========================================================================
-    // TODO 2: Create a constructor with validation
-    //   - No field should be null
-    //   - firstName and lastName must not be empty
-    //   - email must contain '@'
-    //   - hireYear must be between 1970 and current year
-    //   - Set status to ACTIVE by default
-    //   Throw IllegalArgumentException for invalid data
-    // =========================================================================
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
 
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException();
+        }
 
-    // =========================================================================
-    // TODO 3: Create getters for ALL fields
-    // =========================================================================
+        if (hireYear < 1970 || hireYear > Year.now().getValue()) {
+            throw new IllegalArgumentException();
+        }
 
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.department = department;
+        this.status = EmployeeStatus.ACTIVE;
+        this.hireYear = hireYear;
+    }
+
+    public int getHireYear() {
+        return hireYear;
+    }
+
+    public EmployeeStatus getStatus() {
+        return status;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
 
     // =========================================================================
     // TODO 4: Create setters WITH VALIDATION for email, department, status
@@ -60,28 +95,46 @@ public abstract class Employee implements Serializable {
     //     (they don't change after creation)
     // =========================================================================
 
+    public void setEmail(String email) {
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException();
+        }
+        this.email = email;
+    }
+
+    public void setDepartment(Department department) {
+        if (department == null) {
+            throw new IllegalArgumentException();
+        }
+        this.department = department;
+    }
+
+    public void setStatus(EmployeeStatus status) {
+        if (status == null) {
+            throw new IllegalArgumentException();
+        }
+        this.status = status;
+    }
+
 
     // =========================================================================
     // ABSTRACT METHODS — Each employee type implements these differently
     // =========================================================================
 
     /**
-     * TODO 5: Declare abstract method: calculateMonthlySalary()
      * @return the monthly salary for this employee type
      */
-    // public abstract double calculateMonthlySalary();
+    public abstract double calculateMonthlySalary();
 
     /**
-     * TODO 6: Declare abstract method: calculateAnnualSalary()
      * @return the annual salary including any bonuses
      */
-    // public abstract double calculateAnnualSalary();
+    public abstract double calculateAnnualSalary();
 
     /**
-     * TODO 7: Declare abstract method: getEmployeeType()
      * @return "Full-Time" or "Part-Time"
      */
-    // public abstract String getEmployeeType();
+    public abstract String getEmployeeType();
 
 
     // =========================================================================
@@ -89,33 +142,36 @@ public abstract class Employee implements Serializable {
     // =========================================================================
 
     /**
-     * TODO 8: Create getFullName() — returns "firstName lastName"
+     * @return full name
      */
-    // YOUR CODE HERE
-
-    /**
-     * TODO 9: Create getYearsOfService() — current year minus hireYear
-     * Hint: java.time.Year.now().getValue() - hireYear
-     */
-    // YOUR CODE HERE
-
-    /**
-     * TODO 10: Override toString()
-     * Format: "FullTime[id=E001, name=John Smith, dept=ENGINEERING, status=ACTIVE]"
-     */
-    @Override
-    public String toString() {
-        return ""; // Replace this line
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     /**
-     * TODO 11: Override equals() — two employees are equal if they have the same employeeId
+     * @return number of years between hiring and now
      */
-    // YOUR CODE HERE
+    public int getYearsOfService() {
+        return Year.now().getValue() - hireYear;
+    }
 
-    /**
-     * TODO 12: Override hashCode() — based on employeeId
-     */
-    // YOUR CODE HERE
+    @Override
+    public String toString() {
+        return "FullTime[id=" + employeeId + ", name=" + getFullName() + ", dept=" + department + ", status=" + status + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Employee other)) {
+            return false;
+        }
+
+        return this.employeeId.equals(other.employeeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return employeeId.hashCode();
+    }
 }
 

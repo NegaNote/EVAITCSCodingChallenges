@@ -7,7 +7,19 @@ package com.evaitcs.capstone.model;
  * ============================================================================
  */
 public enum EmployeeStatus {
-    // TODO 1: Define statuses: ACTIVE, ON_LEAVE, TERMINATED, PROBATION
-    ;
+    ACTIVE,
+    ON_LEAVE,
+    TERMINATED,
+    PROBATION;
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case ACTIVE -> "ACTIVE";
+            case ON_LEAVE -> "ON_LEAVE";
+            case TERMINATED -> "TERMINATED";
+            case PROBATION -> "PROBATION";
+        };
+    }
 }
 
